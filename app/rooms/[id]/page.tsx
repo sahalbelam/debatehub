@@ -10,7 +10,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { MessageSquare, ArrowLeft, Trash2Icon } from "lucide-react"
 import Link from "next/link"
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore"
+import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot, orderBy, query, serverTimestamp, Timestamp } from "firebase/firestore"
 import { auth, db } from "@/firebase"
 import { useAuth } from "@/hooks/useAuth"
 
@@ -19,7 +19,7 @@ export type MessageType = {
   debater: string;
   message: string;
   stance: string;
-  messagedAt?: any;
+  messagedAt?: Timestamp;
 };
 
 export type Participant = {

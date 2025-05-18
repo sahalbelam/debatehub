@@ -137,7 +137,7 @@ export default function AboutPage() {
                                     </div>
                                     <CardTitle>Take a Stance</CardTitle>
                                     <CardDescription>
-                                        Clearly indicate whether you're arguing for Pro or against Con the topic being debated.
+                                        Clearly indicate whether you are arguing for Pro or against Con the topic being debated.
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
@@ -580,10 +580,4 @@ function TeamMember({ name, role, bio, avatar }: TeamMemberProps) {
             <p className="text-sm text-muted-foreground">{bio}</p>
         </div>
     )
-}
-
-interface ContactCardProps {
-    title: string
-    description: string
-    contact: string
 }
