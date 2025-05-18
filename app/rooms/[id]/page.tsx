@@ -1,7 +1,5 @@
 "use client"
-
 import type React from "react"
-
 import { useState, useRef, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -29,7 +27,7 @@ export type Participant = {
   stance: string;
 };
 
-export default function rooms() {
+export default function Page() {
   const params = useParams()
   const roomId = params.id as string
   const [messages, setMessages] = useState<MessageType[]>([]);
@@ -132,13 +130,6 @@ export default function rooms() {
       fetchRoomOwner();
     }
   }, [roomId]);
-
-
-  const participants: Participant[] = Array.from(
-    new Map(
-      messages.map((msg) => [`${msg.debater}-${msg.stance}`, { debater: msg.debater, stance: msg.stance }])
-    ).values()
-  );
 
   const handleDelete = async () => {
     try {
