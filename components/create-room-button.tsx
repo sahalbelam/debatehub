@@ -1,6 +1,6 @@
 "use client"
 
-import { use, useState } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -56,7 +56,7 @@ export function CreateRoomButton() {
           <DialogHeader>
             <DialogTitle>Create a New Debate Room</DialogTitle>
             <DialogDescription>
-              Fill in the details below to start a new debate. Click create when you're done.
+              Fill in the details below to start a new debate. Click create when you are done.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">

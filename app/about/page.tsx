@@ -7,6 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { MessageSquare, Users, Award, Shield, Clock, Lightbulb, ThumbsUp, Scale } from "lucide-react"
+import Image from "next/image"
 
 export const metadata: Metadata = {
     title: "About | DebateHub",
@@ -136,7 +137,7 @@ export default function AboutPage() {
                                     </div>
                                     <CardTitle>Take a Stance</CardTitle>
                                     <CardDescription>
-                                        Clearly indicate whether you're arguing for (Pro) or against (Con) the topic being debated.
+                                        Clearly indicate whether you're arguing for Pro or against Con the topic being debated.
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
@@ -304,7 +305,7 @@ export default function AboutPage() {
                             <div>
                                 <h2 className="text-3xl font-bold tracking-tight mb-6">Community Guidelines</h2>
                                 <p className="text-muted-foreground mb-6">
-                                    At DebateHub, we're committed to maintaining a respectful environment where diverse viewpoints can be
+                                    At DebateHub were committed to maintaining a respectful environment where diverse viewpoints can be
                                     expressed and explored. Our community guidelines are designed to foster productive discourse while
                                     ensuring all participants feel safe and valued.
                                 </p>
@@ -357,9 +358,9 @@ export default function AboutPage() {
                                     <AccordionItem value="item-1">
                                         <AccordionTrigger>How do I start a debate?</AccordionTrigger>
                                         <AccordionContent>
-                                            To start a debate, navigate to the Debates page and click the "Create Room" button. You'll be
-                                            prompted to enter a title, description, and category for your debate. You can also set the format
-                                            and duration. Once created, you can share the link with others or wait for participants to join.
+                                            To start a debate navigate to the Debates page and click the Create Room button. You will be
+                                            prompted to enter a title description and category for your debate. You can also set the format
+                                            and duration. Once created you can share the link with others or wait for participants to join.
                                         </AccordionContent>
                                     </AccordionItem>
                                     <AccordionItem value="item-2">
@@ -566,12 +567,12 @@ interface TeamMemberProps {
     initials: string
 }
 
-function TeamMember({ name, role, bio, avatar, initials }: TeamMemberProps) {
+function TeamMember({ name, role, bio, avatar }: TeamMemberProps) {
     return (
         <div className="flex flex-col items-center text-center">
             <div className="w-32 h-32 rounded-full bg-primary/20 p-1 mb-4">
                 <div className="w-full h-full rounded-full overflow-hidden bg-background flex items-center justify-center">
-                    <img src={avatar || "/placeholder.svg"} alt={name} className="w-full h-full object-cover" />
+                    <Image src={avatar || "/placeholder.svg"} alt={name} className="w-full h-full object-cover" />
                 </div>
             </div>
             <h3 className="text-xl font-semibold">{name}</h3>
@@ -585,18 +586,4 @@ interface ContactCardProps {
     title: string
     description: string
     contact: string
-}
-
-function ContactCard({ title, description, contact }: ContactCardProps) {
-    return (
-        <Card className="bg-background border-border/40">
-            <CardHeader>
-                <CardTitle className="text-center">{title}</CardTitle>
-                <CardDescription className="text-center">{description}</CardDescription>
-            </CardHeader>
-            <CardContent className="text-center">
-                <p className="text-primary">{contact}</p>
-            </CardContent>
-        </Card>
-    )
 }

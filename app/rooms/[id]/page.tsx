@@ -10,8 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { MessageSquare, Users, ArrowLeft, Trash2Icon } from "lucide-react"
+import { MessageSquare, ArrowLeft, Trash2Icon } from "lucide-react"
 import Link from "next/link"
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore"
 import { auth, db } from "@/firebase"
@@ -30,13 +29,12 @@ export type Participant = {
   stance: string;
 };
 
-export default function gg() {
+export default function rooms() {
   const params = useParams()
   const roomId = params.id as string
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [messageInput, setMessageInput] = useState("")
   const [stance, setStance] = useState("pro")
-  const [isMobileParticipantsOpen, setIsMobileParticipantsOpen] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const [roomName, setRoomName] = useState('')
   const [isOwner, setIsOwner] = useState('')

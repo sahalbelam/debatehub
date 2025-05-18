@@ -1,7 +1,6 @@
 'use client'
 
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
@@ -40,11 +39,11 @@ export default function DashboardPage() {
       try {
         const snapshot = await getDocs(collection(db, "rooms"));
         const roomsData = snapshot.docs.map((doc) => {
-          const { id, ...data } = doc.data() as Room & { id?: string };
+        
           return {
             id: doc.id,
-            ...data,
-          };
+            ...doc.data() ,
+          } as Room;
         });
         setRooms(roomsData);
       } catch (error) {
