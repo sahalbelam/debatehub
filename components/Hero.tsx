@@ -7,9 +7,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 const featuredDebates = [
     {
         id: "1",
-        title: "Should AI development be regulated?",
+        title: "Are social media algorithms making us dumber or smarter?",
         description:
-            "Discussing the ethical implications and potential regulations for artificial intelligence development.",
+            "Personalized feeds serve us more of what we like — but is it helping us learn or keeping us in echo chambers?.",
         category: "Technology",
         participants: 42,
         comments: 128,
@@ -22,8 +22,8 @@ const featuredDebates = [
     },
     {
         id: "2",
-        title: "Is remote work the future of employment?",
-        description: "Exploring the benefits and challenges of remote work and its impact on the future workforce.",
+        title: "India vs Pakistan: Is Peace a Dream or a Dangerous Illusion?",
+        description: "This debate challenges us to confront a hard truth: Can diplomatic talks still build bridges, or are they just a mirage in a battlefield of ideology, history...",
         category: "Business",
         participants: 37,
         comments: 95,
@@ -36,9 +36,9 @@ const featuredDebates = [
     },
     {
         id: "3",
-        title: "Climate change: Individual vs corporate responsibility",
+        title: "Should influencers be legally responsible for promoting harmful content?",
         description:
-            "Debating the balance of responsibility between individuals and corporations in addressing climate change.",
+            "When influencers promote scams, unhealthy products, or fake news, should they be fined or jailed?",
         category: "Environment",
         participants: 56,
         comments: 203,
@@ -49,18 +49,6 @@ const featuredDebates = [
         },
         createdAt: "1 week ago",
     },
-]
-
-// Mock data for debate categories
-const categories = [
-    { name: "Politics", count: 124, color: "bg-red-500" },
-    { name: "Technology", count: 98, color: "bg-blue-500" },
-    { name: "Science", count: 87, color: "bg-green-500" },
-    { name: "Philosophy", count: 76, color: "bg-yellow-500" },
-    { name: "Economics", count: 65, color: "bg-purple-500" },
-    { name: "Environment", count: 54, color: "bg-teal-500" },
-    { name: "Education", count: 43, color: "bg-orange-500" },
-    { name: "Health", count: 32, color: "bg-pink-500" },
 ]
 
 // Mock statistics
@@ -156,7 +144,7 @@ export default function Hero() {
                             <h2 className="text-3xl font-bold tracking-tight">Featured Debates</h2>
                             <p className="text-muted-foreground">Join these popular discussions happening now</p>
                         </div>
-                        <Link href="/debates">
+                        <Link href="/dashboard">
                             <Button variant="outline">View All Debates</Button>
                         </Link>
                     </div>
@@ -172,7 +160,7 @@ export default function Hero() {
                                         <span className="text-sm text-muted-foreground">{debate.createdAt}</span>
                                     </div>
                                     <CardTitle className="text-xl">
-                                        <Link href={`/debates/${debate.id}`} className="hover:text-primary transition-colors">
+                                        <Link href={`/dashboard`} className="hover:text-primary transition-colors">
                                             {debate.title}
                                         </Link>
                                     </CardTitle>
@@ -193,37 +181,13 @@ export default function Hero() {
                                         </Avatar>
                                         <span className="text-sm font-medium">{debate.author.name}</span>
                                     </div>
-                                    <Link href={`/debates/${debate.id}`}>
+                                    <Link href={`/dashboard`}>
                                         <Button variant="ghost" size="sm">
                                             Join Debate
                                         </Button>
                                     </Link>
                                 </CardFooter>
                             </Card>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Categories Section */}
-            <section className="py-16">
-                <div className="mx-10">
-                    <div className="text-center mb-10">
-                        <h2 className="text-3xl font-bold tracking-tight">Explore by Category</h2>
-                        <p className="text-muted-foreground mt-2">Find debates on topics that interest you</p>
-                    </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {categories.map((category) => (
-                            <Link key={category.name} href={`/categories/${category.name.toLowerCase()}`} className="group">
-                                <div className="relative overflow-hidden rounded-lg border p-6 transition-all hover:shadow-md group-hover:border-primary">
-                                    <div
-                                        className={`absolute -right-4 -top-4 h-16 w-16 rounded-full opacity-20 ${category.color}`}
-                                    ></div>
-                                    <h3 className="text-xl font-semibold">{category.name}</h3>
-                                    <p className="text-muted-foreground">{category.count} debates</p>
-                                </div>
-                            </Link>
                         ))}
                     </div>
                 </div>

@@ -1,15 +1,27 @@
+'use client'
 import Link from "next/link"
-import type { Metadata } from "next"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { FcGoogle } from "react-icons/fc"
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "@/firebase"
+import { useRouter } from "next/navigation"
 
-export const metadata: Metadata = {
-  title: "Sign Up | Debate Platform",
-  description: "Create a new account",
-}
+const provider = new GoogleAuthProvider();
 
 export default function SignUpPage() {
+  const router = useRouter()
+
+  const handleSignup = async () => {
+    try {
+      const res = await signInWithPopup(auth, provider)
+      console.log(res.user)
+      router.push('/dashboard')
+    } catch (error) {
+      console.error(error)
+    }
+
+  }
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center">
       <Link href="/" className="absolute left-4 top-4 md:left-8 md:top-8">
@@ -25,9 +37,9 @@ export default function SignUpPage() {
             <CardTitle>One-tap Access</CardTitle>
           </CardHeader>
           <CardContent>
-            <Button variant='outline' className="w-full">
-                <FcGoogle size={20} />
-                Sign-in with Google
+            <Button onClick={handleSignup} variant='outline' className="w-full">
+              <FcGoogle size={20} />
+              Sign-in with Google
             </Button>
           </CardContent>
           <CardFooter className="text-xs text-muted-foreground justify-center">

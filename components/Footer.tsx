@@ -20,7 +20,7 @@ export default function Footer() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/debates" className="text-muted-foreground hover:text-foreground">
+                                    <Link href="/dashboard" className="text-muted-foreground hover:text-foreground">
                                         Debates
                                     </Link>
                                 </li>
@@ -83,6 +83,7 @@ export default function Footer() {
                         </div>
                     </div>
                     <div className="mt-8 border-t border-border pt-8 text-center text-sm text-muted-foreground">
+                        <p>Created By <span className="font-bold text-white">Sahal Belam</span></p>
                         <p>© {new Date().getFullYear()} DebateHub. All rights reserved.</p>
                     </div>
                 </div>
