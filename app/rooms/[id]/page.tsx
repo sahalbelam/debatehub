@@ -157,11 +157,11 @@ export default function Page() {
 
           {/* Right: Delete Button */}
           <div className="flex items-center gap-2 mr-2 sm:mr-4">
-            {isOwner && (
+            {isOwner===auth.currentUser?.displayName ? (
               <Button onClick={handleDelete} variant="ghost" size="icon">
                 <Trash2Icon className="h-5 w-5" />
               </Button>
-            )}
+            ):<span> </span>}
           </div>
         </div>
       </header>

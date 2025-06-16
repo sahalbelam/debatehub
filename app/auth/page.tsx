@@ -19,12 +19,12 @@ const provider = new GoogleAuthProvider();
 
 export default function SignUpPage() {
   const router = useRouter();
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
   useEffect(() => {
-    if (loading || user) {
+    if (user) {
       router.push("/");
     }
-  }, [loading, user, router]);
+  }, [user]);
   const handleSignup = async () => {
     try {
       const res = await signInWithPopup(auth, provider);
