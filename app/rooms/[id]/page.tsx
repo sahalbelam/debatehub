@@ -42,10 +42,10 @@ export default function Page() {
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push("/auth"); // Redirect to login if not logged in
+      router.push("/auth");
     }
   }, [loading, user, router]);
-  // Scroll to bottom of messages when new messages are added
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
@@ -55,7 +55,6 @@ export default function Page() {
     con: "bg-red-950 border-red-600 text-red-100",
   }
 
-  console.log(roomId)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!messageInput.trim()) return
@@ -79,14 +78,12 @@ export default function Page() {
   }) => {
     try {
       const subColRef = collection(db, "rooms", roomId, "messages");
-      const res = await addDoc(subColRef, {
+      await addDoc(subColRef, {
         debater,
         message,
         stance,
         messagedAt: serverTimestamp()
       });
-
-      console.log(res)
     } catch (err) {
       console.error("Error adding message: ", err);
     }
@@ -105,7 +102,7 @@ export default function Page() {
       setMessages(msgs);
     });
 
-    return () => unsubscribe(); // clean up
+    return () => unsubscribe();
   }, [roomId]);
 
   useEffect(() => {
@@ -133,8 +130,7 @@ export default function Page() {
 
   const handleDelete = async () => {
     try {
-      const res = await deleteDoc(doc(db, "rooms", roomId));
-      console.log(res)
+      await deleteDoc(doc(db, "rooms", roomId));
       router.push('/dashboard')
     } catch (err) {
       console.error(err)
@@ -142,12 +138,12 @@ export default function Page() {
   }
 
   return (
-    <div className="flex h-screen flex-col ">
+    <div className="flex h-screen flex-col">
       {/* Header */}
       <header className="sticky top-0 z-10 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-16 items-center justify-between px-2 sm:px-6">
           {/* Left: Back Button */}
-          <Link href="/dashboard" className="mr-4">
+          <Link href="/dashboard" className="mr-2 sm:mr-4">
             <Button variant="ghost" size="icon">
               <ArrowLeft className="h-5 w-5" />
               <span className="sr-only">Back to Dashboard</span>
@@ -156,11 +152,11 @@ export default function Page() {
 
           {/* Center: Room Name */}
           <div className="flex flex-1 items-center justify-center">
-            <h1 className="text-xl font-bold text-center">{roomName}</h1>
+            <h1 className="text-base sm:text-xl font-bold text-center truncate max-w-[60vw]">{roomName}</h1>
           </div>
 
           {/* Right: Delete Button */}
-          <div className="flex items-center gap-2 mr-4">
+          <div className="flex items-center gap-2 mr-2 sm:mr-4">
             {isOwner && (
               <Button onClick={handleDelete} variant="ghost" size="icon">
                 <Trash2Icon className="h-5 w-5" />
@@ -170,22 +166,21 @@ export default function Page() {
         </div>
       </header>
 
-
       {/* Main content */}
       <div className="flex flex-1 overflow-hidden">
         {/* Chat area */}
         <div className="flex-1 flex flex-col">
-          <ScrollArea className="flex-1 p-4">
-            <div className="space-y-4">
+          <ScrollArea className="flex-1 p-2 sm:p-4">
+            <div className="space-y-3 sm:space-y-4">
               {messages.map((msg) => (
-                <div key={msg.id} className="flex gap-3">
+                <div key={msg.id} className="flex gap-2 sm:gap-3">
                   <Avatar className="h-8 w-8 mt-1">
                     <AvatarImage src={auth.currentUser?.photoURL || "/placeholder.svg"} alt={auth.currentUser?.displayName || 'Unknown'} />
                     <AvatarFallback>{auth.currentUser?.displayName?.split(' ').map(word => word[0]).join('')}</AvatarFallback>
                   </Avatar>
                   <div className="flex-1 space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">{msg.debater}</span>
+                    <div className="flex flex-wrap items-center gap-1 sm:gap-2">
+                      <span className="font-medium text-sm sm:text-base">{msg.debater}</span>
                       <Badge
                         variant="outline"
                         className={`text-xs ${msg.stance === "pro" ? "border-green-500 text-green-500" : "border-red-500 text-red-500"}`}
@@ -194,7 +189,7 @@ export default function Page() {
                       </Badge>
                       <span className="text-xs text-muted-foreground">{msg.messagedAt?.toDate?.().toLocaleString() ?? ""}</span>
                     </div>
-                    <div className={`rounded-lg border p-3 ${msg.stance === "pro" ? stanceColors.pro : stanceColors.con}`}>
+                    <div className={`rounded-lg border p-2 sm:p-3 break-words ${msg.stance === "pro" ? stanceColors.pro : stanceColors.con}`}>
                       {msg.message}
                     </div>
                   </div>
@@ -205,8 +200,8 @@ export default function Page() {
           </ScrollArea>
 
           {/* Message input */}
-          <div className="border-t border-border/40 bg-background p-4">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          <div className="border-t border-border/40 bg-background p-2 sm:p-4">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-2 sm:gap-3">
               <div className="flex items-center justify-center">
                 <Tabs value={stance} onValueChange={setStance} className="w-full max-w-[200px]">
                   <TabsList className="grid w-full grid-cols-2">
@@ -222,14 +217,14 @@ export default function Page() {
                   </TabsList>
                 </Tabs>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <Input
                   value={messageInput}
                   onChange={(e) => setMessageInput(e.target.value)}
                   placeholder="Type your argument..."
                   className="flex-1"
                 />
-                <Button type="submit" disabled={!messageInput.trim()}>
+                <Button type="submit" disabled={!messageInput.trim()} className="w-full sm:w-auto">
                   <MessageSquare className="mr-2 h-4 w-4" />
                   Send
                 </Button>

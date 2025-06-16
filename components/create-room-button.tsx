@@ -19,6 +19,7 @@ import { Plus } from 'lucide-react'
 import { auth, db } from "@/firebase"
 import { addDoc, collection, serverTimestamp } from "firebase/firestore"
 import { useRouter } from "next/navigation"
+
 export function CreateRoomButton() {
   const [open, setOpen] = useState(false)
   const [roomData, setRoomData] = useState({
@@ -51,36 +52,49 @@ export function CreateRoomButton() {
           Create Room
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[525px]">
+      <DialogContent
+        className="
+          w-full
+          max-w-[95vw]
+          sm:max-w-[525px]
+          px-4
+          py-6
+          sm:px-8
+          sm:py-8
+          rounded-lg
+        "
+      >
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>Create a New Debate Room</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-lg sm:text-2xl">Create a New Debate Room</DialogTitle>
+            <DialogDescription className="text-xs sm:text-base">
               Fill in the details below to start a new debate. Click create when you are done.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
-              <Label htmlFor="title">Debate Title</Label>
+              <Label htmlFor="title" className="text-sm sm:text-base">Debate Title</Label>
               <Input
                 id="title"
                 onChange={(e) => setRoomData(prev => ({ ...prev, roomName: e.target.value }))}
                 placeholder="Enter a clear, concise title for your debate"
                 required
+                className="text-sm sm:text-base"
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="description">Description</Label>
+              <Label htmlFor="description" className="text-sm sm:text-base">Description</Label>
               <Textarea
                 id="description"
                 onChange={(e) => setRoomData(prev => ({ ...prev, description: e.target.value }))}
                 placeholder="Provide context and key points for discussion"
                 required
+                className="resize-none text-sm sm:text-base min-h-[80px] sm:min-h-[120px]"
               />
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Create Debate Room</Button>
+            <Button type="submit" className="w-full sm:w-auto">Create Debate Room</Button>
           </DialogFooter>
         </form>
       </DialogContent>

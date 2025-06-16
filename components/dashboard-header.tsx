@@ -20,8 +20,8 @@ export function DashboardHeader() {
 
   return (
     <header className="sticky top-0 z-10 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="container flex h-16 items-center justify-between px-2 sm:px-4">
+        <div className="flex items-center gap-2 min-w-0">
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
@@ -55,12 +55,12 @@ export function DashboardHeader() {
               </nav>
             </SheetContent>
           </Sheet>
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl font-bold">DebateHub</span>
+          <Link href="/" className="flex items-center gap-2 min-w-0">
+            <span className="text-xl font-bold truncate">DebateHub</span>
           </Link>
         </div>
         
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden md:flex items-center gap-1 flex-shrink-0">
           <Link href="/dashboard">
             <Button variant="ghost">Dashboard</Button>
           </Link>
@@ -72,7 +72,7 @@ export function DashboardHeader() {
           </Link>
         </nav>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
           <Button variant="ghost" size="icon" className="relative">
             <Bell className="h-5 w-5" />
             <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-primary"></span>

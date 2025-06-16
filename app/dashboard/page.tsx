@@ -19,7 +19,7 @@ interface Room {
   roomName: string;
   owner: string;
   description: string;
-  createdAt: Timestamp; // Firestore timestamp as ISO or string
+  createdAt: Timestamp;
 }
 
 export default function DashboardPage() {
@@ -30,7 +30,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push("/auth"); // Redirect to login if not logged in
+      router.push("/auth");
     }
   }, [loading, user, router]);
 
@@ -39,10 +39,9 @@ export default function DashboardPage() {
       try {
         const snapshot = await getDocs(collection(db, "rooms"));
         const roomsData = snapshot.docs.map((doc) => {
-        
           return {
             id: doc.id,
-            ...doc.data() ,
+            ...doc.data(),
           } as Room;
         });
         setRooms(roomsData);
@@ -58,23 +57,23 @@ export default function DashboardPage() {
     <div className="flex min-h-screen flex-col">
       <Navbar />
 
-      <main className="mx-10 flex-1 py-6">
+      <main className="flex-1 px-4 py-6 sm:px-6 md:px-10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Debate Rooms</h1>
-            <p className="text-muted-foreground">Join an existing debate or create your own room</p>
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Debate Rooms</h1>
+            <p className="text-muted-foreground text-sm sm:text-base">Join an existing debate or create your own room</p>
           </div>
           <CreateRoomButton />
         </div>
 
         <div className="grid gap-6">
-          <div className="flex flex-col md:flex-row gap-4">
-            <Input type="search" placeholder="Search rooms..." className="w-full" />
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Input type="search" placeholder="Search rooms..." className="w-full sm:max-w-xs" />
           </div>
 
           <Tabs defaultValue="active" className="w-full">
             <TabsContent value="active" className="mt-0">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {rooms.map((room) => (
                   <RoomCard key={room.id} room={room} />
                 ))}
@@ -95,7 +94,7 @@ function RoomCard({ room }: RoomCardProps) {
   return (
     <Card className="overflow-hidden transition-all hover:shadow-lg">
       <CardHeader className="pb-3">
-        <CardTitle className="text-xl">
+        <CardTitle className="text-lg sm:text-xl">
           <Link href={`/rooms/${room.id}`} className="hover:text-primary transition-colors">
             {room.roomName}
           </Link>
@@ -103,7 +102,7 @@ function RoomCard({ room }: RoomCardProps) {
         <CardDescription className="line-clamp-2">{room.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
           <span>•</span>
           <span>Created {room.createdAt.toDate().toLocaleString('en-GB')}</span>
         </div>
@@ -114,13 +113,10 @@ function RoomCard({ room }: RoomCardProps) {
             <AvatarImage src={"/placeholder.svg"} alt={room.owner || ""} />
             <AvatarFallback>{room.owner?.split(' ').map(word => word[0]).join('') || "?"}</AvatarFallback>
           </Avatar>
-          <span className="text-sm font-medium">{room.owner || "Unknown"}</span>
+          <span className="text-xs sm:text-sm font-medium">{room.owner || "Unknown"}</span>
         </div>
         <Badge>Live Now</Badge>
       </CardFooter>
     </Card>
   );
 }
-
-
-
